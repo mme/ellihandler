@@ -21,13 +21,16 @@ defmodule ExElliHTTPHandler do
     end
   end
   
-  defp compile_path(path) do
-    spec = case String.split(path, "/") do
-      [""|spec] -> spec
-      spec      -> spec
+  defp split_path(path) do
+    case path do
+      "/"                     ->  []
+      <<"/", rest :: binary>> ->  String.split(rest, "/")
+      _                       ->  String.split(path, "/")
     end
-    
-    Enum.map spec, compile_pattern(&1)
+  end
+  
+  defp compile_path(path) do
+    Enum.map split_path(path), compile_pattern(&1)
   end
   
   defp compile_pattern(pat) do

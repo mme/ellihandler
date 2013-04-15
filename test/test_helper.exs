@@ -12,4 +12,8 @@ defmodule TestHandler do
     http_ok "Hello #{planet}"
   end
   
+  get "/" do
+    http_ok "root"
+  end
+  
 end

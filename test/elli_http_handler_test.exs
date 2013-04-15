@@ -14,6 +14,12 @@ defmodule ExElliHTTPHandlerTest do
     assert response == 'Hello world'
   end
   
+  test "get /" do
+    {:ok, {_,_,response}} = :httpc.request('http://localhost:3000/')
+    assert response == 'root'
+  end
+  
+  
   test "get with var" do
     {:ok, {_,_,response}} = :httpc.request('http://localhost:3000/hello/moon')
     assert response == 'Hello moon'
