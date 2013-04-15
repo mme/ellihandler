@@ -19,14 +19,12 @@ defmodule ExElliHTTPHandlerTest do
     assert response == 'root'
   end
   
-  
   test "get with var" do
     {:ok, {{_,200,_},_,response}} = :httpc.request('http://localhost:3000/hello/moon')
     assert response == 'Hello moon'
   end
   
   test "post" do
-    # :httpc.request(:post, {'http://localhost:3000/hello/world', [], 'application/x-www-form-urlencoded', 'hl=en&q=erlang&btnG=Google+Search&meta='  },  [], [])
     {:ok, {{_,200,_},_,response}} = :httpc.request(:post, {'http://localhost:3000/hello/world', [], '', ''},  [], [])
     assert response == 'Hello world post'
   end
@@ -41,7 +39,23 @@ defmodule ExElliHTTPHandlerTest do
     assert status == 404
   end
   
+  test "no such route" do
+    {:ok, {{_,status,_},_,_}} = :httpc.request('http://localhost:3000/no/such/route')
+    assert status == 404
+  end
+  
+  test "param missing" do
+    {:ok, {{_,status,_},_,_}} = IO.inspect :httpc.request('http://localhost:3000/params')
+    assert status == 400
+  end
+  
+  test "params" do
+    {:ok, {{_,_,_},_,response}} = IO.inspect :httpc.request('http://localhost:3000/params?a=1&b=2')
+    assert response == 'Got a=1 and b=2'
+  end
+  
   teardown meta do
     :elli.stop(meta[:pid])
   end
+  
 end

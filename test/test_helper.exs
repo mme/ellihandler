@@ -4,6 +4,7 @@ ExUnit.start
 defmodule TestHandler do
   use ExElliHTTPHandler
   
+  
   get "/hello/world" do
     http_ok "Hello world"
   end
@@ -27,6 +28,10 @@ defmodule TestHandler do
   get "/halt" do
     halt! http_not_found
     http_ok "ok"
+  end
+  
+  get "/params", with_params a, b do
+    http_ok("Got a=#{a} and b=#{b}")
   end
   
 end

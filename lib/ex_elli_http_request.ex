@@ -22,7 +22,7 @@ defmodule ExElliHTTPRequest do
   
   def get_header( key, default, {__MODULE__, elli_req} ),   do: :elli_request.get_range(key, default, elli_req)
   
-  def get_arg( key, {__MODULE__, elli_req} ),               do: :elli_request.get_header(key, elli_req)
+  def get_arg( key, {__MODULE__, elli_req} ),               do: :elli_request.get_arg(key, elli_req)
   
   def get_arg( key, default, {__MODULE__, elli_req}),       do: :elli_request.get_header(key, default, elli_req)
   
