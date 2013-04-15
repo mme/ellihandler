@@ -16,4 +16,17 @@ defmodule TestHandler do
     http_ok "root"
   end
   
+  post "/hello/world" do
+    http_ok "Hello world post"
+  end
+  
+  post "/hello/post/variable" do
+    http_ok req.post_arg("var")
+  end
+  
+  get "/halt" do
+    halt! http_not_found
+    http_ok "ok"
+  end
+  
 end

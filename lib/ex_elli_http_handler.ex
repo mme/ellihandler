@@ -1,4 +1,3 @@
-defrecord ExElliHTTPRequest, Record.extract(:req, from: "deps/elli/include/elli.hrl")
 
 defmodule ExElliHTTPHandler do
   
@@ -9,7 +8,7 @@ defmodule ExElliHTTPHandler do
       
       def handle(elli_req,_args) do
         req = ExElliHTTPRequest.new elli_req
-        handle(req.method, :elli_request.path(elli_req), req)
+        handle(req.method, req.path, req)
       end
       
       def handle_event(_event, _data, _args) do
@@ -22,11 +21,7 @@ defmodule ExElliHTTPHandler do
   end
   
   defp split_path(path) do
-    case path do
-      "/"                     ->  []
-      <<"/", rest :: binary>> ->  String.split(rest, "/")
-      _                       ->  String.split(path, "/")
-    end
+    Enum.filter String.split(path, "/"), &1 != ""
   end
   
   defp compile_path(path) do
@@ -84,6 +79,11 @@ defmodule ExElliHTTPHandler do
     end
   end
   
-  def http_ok(response // ""), do: {:ok, [], response}
+  def http_ok(body // ""),                                          do: {:ok, [], body}
+  def http_not_found(body // "Not Found"),                          do: {404, [], body}
+  def http_permission_denied(body // "Permission denied"),          do: {403, [], body}
+  def http_internal_server_error(body // "Internal Server Error"),  do: {500, [], body}
+  
+  def halt!(res), do: throw(res)
   
 end
