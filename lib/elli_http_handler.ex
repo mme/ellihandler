@@ -109,8 +109,17 @@ defmodule Elli.HTTPHandler do
       end
     end
   end
-
-  def http_ok(body // "Ok"),                                        do: {:ok, [], body}
+  
+  def with_headers(added_headers, {status, headers, body}),         do: {status, headers ++ added_headers, body}
+  def http_ok,                                                      do: {:ok, [], "Ok"}
+  def http_ok(body) when is_binary(body),                           do: {:ok, [], body}
+  def http_ok(:json),                                               do: http_ok(:json, "{\"status\":\"ok\"}")
+  def http_ok(:html),                                               do: http_ok(:html, "Ok")
+  def http_ok(:text),                                               do: http_ok(:text, "Ok")
+  def http_ok(:json, body),                                         do: http_ok("application/json", body)
+  def http_ok(:html, body),                                         do: http_ok("text/html", body)
+  def http_ok(:text, body),                                         do: http_ok("text/plain", body)
+  def http_ok(content_type, body),                                  do: with_headers [{"Content-type", content_type}] , http_ok(body)
   def http_not_found(body // "Not Found"),                          do: {404, [], body}
   def http_permission_denied(body // "Permission denied"),          do: {403, [], body}
   def http_internal_server_error(body // "Internal Server Error"),  do: {500, [], body}
