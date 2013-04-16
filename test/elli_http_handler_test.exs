@@ -1,11 +1,13 @@
 Code.require_file "../test_helper.exs", __FILE__
 
-defmodule ElliHTTPHandlerTest do
+defmodule Elli.HTTPRequestHandler.Test do
   use ExUnit.Case
   
   setup do
     :inets.start()
-    { :ok, pid } = :elli.start_link [callback: TestHandler, port: 3000]
+    
+    config = [mods: [{Test.HTTPMiddlewareHandler, []}, {Test.HTTPRequestHandler, []}]]
+    { :ok, pid } = :elli.start_link [callback: :elli_middleware, callback_args: config, port: 3000]
     { :ok, pid: pid }
   end
   
@@ -52,6 +54,11 @@ defmodule ElliHTTPHandlerTest do
   test "params" do
     {:ok, {{_,_,_},_,response}} = :httpc.request('http://localhost:3000/params?a=1&b=2')
     assert response == 'Got a=1 and b=2'
+  end
+  
+  test "middleware" do
+    {:ok, {{_,200,_},_,response}} = :httpc.request('http://localhost:3000/middleware/hello')
+    assert response == 'hello from middleware'
   end
   
   teardown meta do

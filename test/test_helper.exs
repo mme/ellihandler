@@ -1,9 +1,8 @@
 ExUnit.start
 
 
-defmodule TestHandler do
-  use ElliHTTPHandler
-  
+defmodule Test.HTTPRequestHandler do
+  use Elli.HTTPRequestHandler
   
   get "/hello/world" do
     http_ok "Hello world"
@@ -34,4 +33,35 @@ defmodule TestHandler do
     http_ok("Got a=#{a} and b=#{b}")
   end
   
+  get "/middleware/hello" do
+    IO.puts("HERE!")
+    http_ok("hello from middleware")
+  end
+  
 end
+
+defmodule Test.HTTPMiddlewareHandler do
+  use Elli.HTTPRequestHandler
+  
+  get "/" do
+    elli_ignore
+  end
+  
+  get "/middleware/hello" do
+    http_ok("hello from middleware")
+  end
+  
+end
+# 
+# defmodule Test.HTTPMiddlewareHandler do
+#   use Elli.HTTPRequestHandler
+#   
+#   # get "/" do
+#   #   elli_ignore
+#   # end
+#   
+#   get "/middleware/hello" do
+#     IO.puts("HERE!")
+#     http_ok("hello from middleware")
+#   end
+# end
