@@ -1,18 +1,17 @@
-
-defmodule ExElliHTTPHandler do
+defmodule ElliHTTPHandler do
   
   defmacro __using__(_opts) do
     
     quote do
       @behaviour :elli_handler
-      @before_compile ExElliHTTPHandler
+      @before_compile ElliHTTPHandler
       
       def handle(elli_req,_args) do
-        req = ExElliHTTPRequest.new elli_req
+        req = ElliHTTPRequest.new elli_req
         handle(req.method, req.path, req)
       end
 
-      import ExElliHTTPHandler
+      import ElliHTTPHandler
     end
   end
   

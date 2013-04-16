@@ -1,4 +1,4 @@
-defmodule ExElliHTTPRequest do
+defmodule ElliHTTPRequest do
   
   def new(elli_req) do
     {__MODULE__, elli_req}

@@ -2,7 +2,7 @@ ExUnit.start
 
 
 defmodule TestHandler do
-  use ExElliHTTPHandler
+  use ElliHTTPHandler
   
   
   get "/hello/world" do

@@ -1,8 +1,8 @@
-defmodule ExElliHTTPHandler.Mixfile do
+defmodule ElliHTTPHandler.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :ex_elli_http_handler,
+    [ app: :elli_http_handler,
       version: "0.0.1",
       deps: deps ]
   end

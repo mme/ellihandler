@@ -1,6 +1,6 @@
 Code.require_file "../test_helper.exs", __FILE__
 
-defmodule ExElliHTTPHandlerTest do
+defmodule ElliHTTPHandlerTest do
   use ExUnit.Case
   
   setup do
@@ -45,12 +45,12 @@ defmodule ExElliHTTPHandlerTest do
   end
   
   test "param missing" do
-    {:ok, {{_,status,_},_,_}} = IO.inspect :httpc.request('http://localhost:3000/params')
+    {:ok, {{_,status,_},_,_}} = :httpc.request('http://localhost:3000/params')
     assert status == 400
   end
   
   test "params" do
-    {:ok, {{_,_,_},_,response}} = IO.inspect :httpc.request('http://localhost:3000/params?a=1&b=2')
+    {:ok, {{_,_,_},_,response}} = :httpc.request('http://localhost:3000/params?a=1&b=2')
     assert response == 'Got a=1 and b=2'
   end
   
