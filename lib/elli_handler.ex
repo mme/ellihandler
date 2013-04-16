@@ -1,9 +1,9 @@
-defmodule Elli.HTTPHandler do
+defmodule Elli.Handler do
   
   defmacro __using__(_opts) do
     
     quote do
-      @before_compile Elli.HTTPHandler
+      @before_compile Elli.Handler
       @behaviour :elli_handler
       
       def handle(elli_req,args) do
@@ -21,7 +21,7 @@ defmodule Elli.HTTPHandler do
         
       end
 
-      import Elli.HTTPHandler
+      import Elli.Handler
       
     end
   end

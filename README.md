@@ -9,7 +9,7 @@ Quick start
 
 ```elixir
 defmodule Handler do
-  use Elli.HTTPHandler
+  use Elli.Handler
   
   get "/" do
     http_ok "Hello world"

@@ -1,4 +1,4 @@
-defmodule Elli.HTTPHandler.Mixfile do
+defmodule Elli.Handler.Mixfile do
   use Mix.Project
 
   def project do
