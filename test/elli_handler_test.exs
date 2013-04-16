@@ -32,8 +32,8 @@ defmodule Elli.Handler.Test do
   end
   
   test "post body" do
-    {:ok, {{_,200,_},_,response}} = :httpc.request(:post, {'http://localhost:3000/hello/post/variable', [], 'application/x-www-form-urlencoded', 'var=hello_hello'  },  [], [])
-    assert response == 'hello_hello'
+    {:ok, {{_,200,_},_,response}} = :httpc.request(:post, {'http://localhost:3000/hello/post/variable', [], 'application/x-www-form-urlencoded', 'var=hello%20hello'  },  [], [])
+    assert response == 'hello hello'
   end
   
   test "halt" do
