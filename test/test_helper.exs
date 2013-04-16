@@ -1,8 +1,8 @@
 ExUnit.start
 
 
-defmodule Test.HTTPRequestHandler do
-  use Elli.HTTPRequestHandler
+defmodule Test.HTTPHandler do
+  use Elli.HTTPHandler
   
   get "/hello/world" do
     http_ok "Hello world"
@@ -41,7 +41,7 @@ defmodule Test.HTTPRequestHandler do
 end
 
 defmodule Test.HTTPMiddlewareHandler do
-  use Elli.HTTPRequestHandler
+  use Elli.HTTPHandler
   
   get "/" do
     elli_ignore

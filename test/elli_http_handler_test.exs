@@ -1,12 +1,12 @@
 Code.require_file "../test_helper.exs", __FILE__
 
-defmodule Elli.HTTPRequestHandler.Test do
+defmodule Elli.HTTPHandler.Test do
   use ExUnit.Case
   
   setup do
     :inets.start()
     
-    config = [mods: [{Test.HTTPMiddlewareHandler, []}, {Test.HTTPRequestHandler, []}]]
+    config = [mods: [{Test.HTTPMiddlewareHandler, []}, {Test.HTTPHandler, []}]]
     { :ok, pid } = :elli.start_link [callback: :elli_middleware, callback_args: config, port: 3000]
     { :ok, pid: pid }
   end
