@@ -23,6 +23,33 @@ end
 
 Point your browser to [http://localhost:3000/](http://localhost:3000/)
 
+Usage
+-------------------------
+
+use _get_, _post_, _put_ or _delete_ to match http requests methods
+```elixir
+post "/hello" do
+  http_ok "Hello post"
+end
+```
+
+or use _match_ to match all methods
+```elixir
+match method, "/rest" do
+ if method == :DELETE do
+   http_permission_denied
+ else
+   http_ok
+ end
+end
+```
+
+parameters become available as variables
+```elixir
+get "/hello/:name" do
+ http_ok("Hello #{name}!")
+end
+```
 
 License
 -------------------------
