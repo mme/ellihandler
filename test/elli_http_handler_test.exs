@@ -6,7 +6,7 @@ defmodule Elli.HTTPHandler.Test do
   setup do
     :inets.start()
     
-    config = [mods: [{Test.HTTPMiddlewareHandler, []}, {Test.HTTPHandler, []}]]
+    config = [mods: [{Test.HTTPMiddlewareHandler, [prefix: "/middleware/"]}, {Test.HTTPHandler, []}]]
     { :ok, pid } = :elli.start_link [callback: :elli_middleware, callback_args: config, port: 3000]
     { :ok, pid: pid }
   end

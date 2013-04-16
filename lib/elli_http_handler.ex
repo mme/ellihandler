@@ -6,9 +6,19 @@ defmodule Elli.HTTPHandler do
       @before_compile Elli.HTTPHandler
       @behaviour :elli_handler
       
-      def handle(elli_req,_args) do
+      def handle(elli_req,args) do
         req = Elli.HTTPRequest.new elli_req
-        handle(req.method, req.path, req)
+        
+        case args[:prefix] do
+          nil            -> handle(req.method, req.path, req)
+          string_prefix  -> prefix = (Enum.filter String.split(string_prefix, "/"), &1 != "")
+                            if (Enum.take req.path, length(prefix)) == prefix do
+                              handle(req.method, (Enum.drop req.path, length(prefix)), req)
+                            else
+                              :ignore
+                            end
+        end
+        
       end
 
       import Elli.HTTPHandler

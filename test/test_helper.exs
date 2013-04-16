@@ -33,10 +33,6 @@ defmodule Test.HTTPHandler do
     http_ok("Got a=#{a} and b=#{b}")
   end
   
-  get "/middleware/hello" do
-    IO.puts("HERE!")
-    http_ok("hello from middleware")
-  end
   
 end
 
@@ -47,7 +43,7 @@ defmodule Test.HTTPMiddlewareHandler do
     elli_ignore
   end
   
-  get "/middleware/hello" do
+  get "/hello" do
     http_ok("hello from middleware")
   end
   
