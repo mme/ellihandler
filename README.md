@@ -44,10 +44,40 @@ match method, "/rest" do
 end
 ```
 
-parameters become available as variables
+parameters are available as variables
 ```elixir
 get "/hello/:name" do
  http_ok("Hello #{name}!")
+end
+```
+
+query string parameters can be bound to variables too
+```elixir
+get "/goodbye" with_params name do
+ http_ok("Goodbye #{name}!")
+end
+```
+
+use halt! to return immediately
+```elixir
+get "/halt" do
+  halt! http_bad_request
+  http_ok("Didn't happen")
+end
+```
+
+listen to elli events in your middleware
+```elixir
+event :elli_startup do
+  IO.puts "Elli started"
+end
+```
+
+return elli_ignore in middleware to give other modules the opportunity to respond
+```elixir
+get "/" do
+  IO.inspect data
+  elli_ignore
 end
 ```
 
