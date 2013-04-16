@@ -21,7 +21,7 @@ end
 
 ```
 
-Point your browser to [http://localhost:3000/]
+Point your browser to [http://localhost:3000/](http://localhost:3000/)
 
 
 License
