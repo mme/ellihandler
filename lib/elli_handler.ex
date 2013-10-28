@@ -31,7 +31,7 @@ defmodule Elli.Handler do
   end
   
   defp compile_path(path) do
-    Enum.map split_path(path), compile_pattern(&1)
+    Enum.map(split_path(path), compile_pattern(&1))
   end
   
   defp compile_pattern(pat) do
@@ -45,7 +45,7 @@ defmodule Elli.Handler do
   end
   
   defp compile_params(nil), do: nil
-  defp compile_params({:with_params, _, params}), do: Enum.map params, compile_param(&1)
+  defp compile_params({:with_params, _, params}), do: Enum.map(params, compile_param(&1))
   
   defp compile_param({param,_,_}) do
     param_binary = atom_to_binary(param)
@@ -119,7 +119,7 @@ defmodule Elli.Handler do
   def http_ok(:json, body),                                         do: http_ok("application/json", body)
   def http_ok(:html, body),                                         do: http_ok("text/html", body)
   def http_ok(:text, body),                                         do: http_ok("text/plain", body)
-  def http_ok(content_type, body),                                  do: with_headers [{"Content-type", content_type}] , http_ok(body)
+  def http_ok(content_type, body),                                  do: with_headers([{"Content-type", content_type}] , http_ok(body))
   def http_not_found(body // "Not Found"),                          do: {404, [], body}
   def http_permission_denied(body // "Permission denied"),          do: {403, [], body}
   def http_internal_server_error(body // "Internal Server Error"),  do: {500, [], body}
