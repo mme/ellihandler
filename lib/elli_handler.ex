@@ -27,11 +27,11 @@ defmodule Elli.Handler do
   end
 
   defp split_path(path) do
-    Enum.filter String.split(path, "/"), &1 != ""
+    Enum.filter String.split(path, "/"), &( &1 != "" )
   end
   
   defp compile_path(path) do
-    Enum.map(split_path(path), compile_pattern(&1))
+    Enum.map(split_path(path), &compile_pattern(&1))
   end
   
   defp compile_pattern(pat) do
@@ -45,7 +45,7 @@ defmodule Elli.Handler do
   end
   
   defp compile_params(nil), do: nil
-  defp compile_params({:with_params, _, params}), do: Enum.map(params, compile_param(&1))
+  defp compile_params({:with_params, _, params}), do: Enum.map(params, &compile_param(&1))
   
   defp compile_param({param,_,_}) do
     param_binary = atom_to_binary(param)
