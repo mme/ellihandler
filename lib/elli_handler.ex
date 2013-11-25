@@ -11,7 +11,7 @@ defmodule Elli.Handler do
         
         case args[:prefix] do
           nil            -> handle(req.method, req.path, req)
-          string_prefix  -> prefix = (Enum.filter String.split(string_prefix, "/"), &1 != "")
+          string_prefix  -> prefix = (Enum.filter String.split(string_prefix, "/"), &( &1 != "" ))
                             if (Enum.take req.path, length(prefix)) == prefix do
                               handle(req.method, (Enum.drop req.path, length(prefix)), req)
                             else
