@@ -29,7 +29,7 @@ defmodule Test.Handler do
     http_ok "ok"
   end
   
-  get "/params", with_params a, b do
+  get "/params", with_params(a, b) do
     http_ok("Got a=#{a} and b=#{b}")
   end
   
